@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  terragrunt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/terraform
+      - ./.aws:/root/.aws
+    working_dir: /terraform/environments
+    entrypoint: /bin/bash
+    environment:
+      AWS_PROFILE: ${AWS_PROFILE}
