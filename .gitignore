@@ -1,0 +1,6 @@
+.terraform
+.envrc
+_provider.tf
+_backend.tf
+.terraform.lock.hcl
+.terragrunt-cache

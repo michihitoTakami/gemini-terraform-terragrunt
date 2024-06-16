@@ -7,6 +7,5 @@ RUN unzip terraform_1.8.5_linux_amd64.zip -d /bin
 RUN curl -L "https://github.com/gruntwork-io/terragrunt/releases/download/v0.59.3/terragrunt_linux_amd64" -o /usr/local/bin/terragrunt \
     && chmod +x /usr/local/bin/terragrunt
 ENV HISTFILE=/terraform/.bash_history
-ENV PS1='$(whoami):${PWD/*\//}# '
 ENTRYPOINT ["/bin/bash"]
 
