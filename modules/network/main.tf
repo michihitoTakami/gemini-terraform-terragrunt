@@ -58,7 +58,7 @@ resource "aws_subnet" "public_subnet" {
 resource "aws_subnet" "private_subnet" {
   vpc_id = aws_vpc.vpc.id
   cidr_block = var.private_subnet_cidr_block
-  availability_zone = "ap-northeast-1b"
+  availability_zone = "ap-northeast-1a"
 
   tags = {
     Name = "${var.app_name}-private-subnet"
@@ -68,8 +68,20 @@ resource "aws_subnet" "private_subnet" {
 }
 
 # NATゲートウェイの作成
+resource "aws_eip" "nat_gateway_eip" {
+  depends_on = [aws_internet_gateway.igw]
+
+  tags = {
+    Name = "${var.app_name}-nat-gateway-eip"
+    Env     = var.env
+    Project = var.app_name
+  }
+}
+
+
 resource "aws_nat_gateway" "nat" {
   subnet_id = aws_subnet.public_subnet.id
+  allocation_id = aws_eip.nat_gateway_eip.id
 
   tags = {
     Name = "${var.app_name}-nat-gateway"
